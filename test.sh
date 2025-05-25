@@ -6,7 +6,7 @@ set -euo pipefail
 
 image="$1"
 
-tag=ghcr.io/amrebash/$image:latest
+tag=ghcr.io/amredev/$image:latest
 
 step docker buildx bake --load --set "$image.tags=$tag" "$image"
 

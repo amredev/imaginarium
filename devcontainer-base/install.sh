@@ -32,8 +32,8 @@ packages=(
     git
     # Required for git ssh auth
     openssh-client
-    # Required for `ps` command
-    # procps
+    unzip
+    xz-utils
     # Better terminal experience
     zsh
 )

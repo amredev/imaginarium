@@ -4,16 +4,10 @@ set -euo pipefail
 
 . "$(dirname "${BASH_SOURCE[0]}")/../amrebash/lib.sh"
 
+node_version="20.19.2"
+
+mkdir -p "$HOME/.node"
+
 # Download and install nvm:
-fetch https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-
-# in lieu of restarting the shell
-# shellcheck disable=SC1091
-. "$HOME/.nvm/nvm.sh"
-
-# Download and install Node.js:
-nvm install 20
-
-# Small sanity check:
-step node -v
-step npm -v
+fetch https://nodejs.org/dist/v$node_version/node-v$node_version-linux-x64.tar.xz | \
+    tar -xJf - -C "$HOME/.node" --strip-components=1
