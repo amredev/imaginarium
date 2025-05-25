@@ -10,4 +10,4 @@ mkdir -p "$HOME/.node"
 
 # Download and install nvm:
 fetch https://nodejs.org/dist/v$node_version/node-v$node_version-linux-x64.tar.xz | \
-    tar -xJf - -C "$HOME/.node" --strip-components=1
+    step tar -xJf - -C "$HOME/.node" --strip-components=1
