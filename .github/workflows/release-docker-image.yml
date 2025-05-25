@@ -1,0 +1,43 @@
+name: release-docker-image
+on:
+  workflow_call:
+    inputs:
+      image:
+        type: string
+        description: The name of the Docker image to build and push.
+
+env:
+  IMAGE_REGISTRY: ghcr.io
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: docker login $IMAGE_REGISTRY --username "$LOGIN_USER" --password "$LOGIN_TOKEN"
+        env:
+          LOGIN_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LOGIN_USER: ${{ github.actor }}
+
+      - uses: docker/setup-buildx-action@v3
+
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/${{ inputs.image }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+
+      - uses: docker/bake-action@v6
+        with:
+          files: |
+            ./docker-bake.hcl
+            cwd://${{ steps.meta.outputs.bake-file }}
+          targets: ${{ inputs.image }}
+          push: true
+          sbom: true
+          provenance: true

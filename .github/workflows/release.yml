@@ -1,0 +1,23 @@
+on:
+  push:
+    tags: [v*]
+
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+jobs:
+  devcontainer-base:
+    uses: ./.github/workflows/release-docker-image.yml
+    secrets: inherit
+    with:
+      image: devcontainer-base
+
+  devcontainer-decondenser:
+    uses: ./.github/workflows/release-docker-image.yml
+    secrets: inherit
+    needs: devcontainer-base
+    with:
+      image: devcontainer-decondenser

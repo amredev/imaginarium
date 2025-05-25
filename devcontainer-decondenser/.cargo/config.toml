@@ -1,0 +1,3 @@
+# mold is a moder linker that should be better than the default one
+[target.'cfg(target_os = "linux")']
+rustflags = ["-C", "link-arg=-fuse-ld=/home/amredev/tools/mold"]

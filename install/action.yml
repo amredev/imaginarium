@@ -1,0 +1,28 @@
+name: Install a tool
+description: >
+  Install one of the supported tool. Single-binary tools will be installed to
+  $HOME/tools. This directory will be added to the PATH automatically.
+
+inputs:
+  tool:
+    description: >
+      The name of the tool to install. See the list of available tools in
+      the scripts/install directory of the repo.
+    required: true
+
+  version:
+    description: >
+      The version of the tool to install. This is required to make sure you
+      pin the version of the tool. Using the wildcard to get always the latest
+      version is not recommended.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: >
+        "${GITHUB_ACTION_PATH:?}/tools/$tool.sh" "$version"
+      env:
+        tool: ${{ inputs.tool }}
+        version: ${{ inputs.version }}
