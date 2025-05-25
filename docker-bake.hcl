@@ -7,7 +7,7 @@ target "devcontainer-base" {
 }
 
 target "devcontainer-decondenser" {
-  inherits = ["devcontainer-base"]
+  inherits = ["docker-metadata-action"]
   context = "."
   dockerfile = "devcontainer-decondenser/Dockerfile"
 }
