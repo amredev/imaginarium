@@ -14,7 +14,7 @@ RUN apk add --no-cache \
     # Fzf provides better search history navigation via Ctrl+R
     fzf \
     # JSON processing in the terminal/scripts
-    jq \
+    yq \
     # Required for git ssh auth
     openssh-client \
     # Run commands as root
