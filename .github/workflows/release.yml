@@ -23,6 +23,8 @@ jobs:
           LOGIN_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LOGIN_USER: ${{ github.actor }}
 
+      - uses: docker/setup-buildx-action@v3
+
       - id: meta
         uses: docker/metadata-action@v5
         with:
