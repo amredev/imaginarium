@@ -13,7 +13,8 @@ USER $USER
 # Path where the workspace should be mounted.
 ENV CONTAINER_WORKSPACE=$HOME/workspace
 
-RUN mkdir -p "$CONTAINER_WORKSPACE"
+RUN mkdir -p "$CONTAINER_WORKSPACE" \
+  && mkdir $HOME/devcontainer-hooks
 
 COPY --chown=$USER:$USER amrebash $HOME/amrebash
 
