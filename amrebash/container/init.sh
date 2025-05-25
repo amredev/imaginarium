@@ -60,6 +60,4 @@ fi
 # if the caller waits for the healtheck to pass before running them.
 step touch "$HOME/.initialized"
 
-info "Args: $*"
-
 exec "$@"
