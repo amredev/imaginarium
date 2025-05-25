@@ -1,49 +1,14 @@
-FROM alpine:3.21
-
-RUN apk add --no-cache \
-    # Shell interpreter
-    bash \
-    # Better version of `cat` that adds syntax highlighting
-    bat \
-    # Resource monitor and process manager
-    bottom \
-    # Terminal HTTP client
-    curl \
-    # Source control
-    git \
-    # Fzf provides better search history navigation via Ctrl+R
-    fzf \
-    # JSON processing in the terminal/scripts
-    yq \
-    # Required for git ssh auth
-    openssh-client \
-    # Run commands as root
-    sudo \
-    # Better terminal experience
-    zsh \
-    # Install packages from the Alpine edge repository
-    && apk add --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/community \
-    # The latest version of `docker-compose` in the `edge` repo contains a fix
-    # for the following annoying terminal flickering bug:
-    # https://github.com/docker/compose/issues/12370
-    #
-    # TODO: switch this to the main repo once it has v2.35.1+ docker-compose
-    docker-cli-compose
+FROM debian:trixie-slim
 
 ARG USER=amredev
 
-# The UID of 1000 is the default for most Linux distributions, which should make
-# this user map to the default user on the host system for bind-mounted volumes.
-#
-# However, if the host user has a different UID, we'll need to update the user
-# ID and file ownership in the image that is built on top of this one.
-RUN adduser "$USER" --uid 1000 --shell /bin/zsh --disabled-password \
-    # Allow paswordless sudo for the non-root user
-    && echo "$USER ALL=(ALL) NOPASSWD:ALL" > "/etc/sudoers.d/$USER"
+ENV HOME=/home/$USER
+
+ARG INSTALL_SH=devcontainer-base/install.sh
+RUN --mount=source=amrebash,target=amrebash \
+    --mount=source=$INSTALL_SH,target=$INSTALL_SH $INSTALL_SH
 
 USER $USER
-
-ENV HOME=/home/$USER
 
 # Path where the workspace should be mounted.
 ENV CONTAINER_WORKSPACE=$HOME/workspace
@@ -52,11 +17,11 @@ RUN mkdir -p "$CONTAINER_WORKSPACE"
 
 COPY --chown=$USER:$USER amrebash $HOME/amrebash
 
-ARG OMZ=devcontainer-base/oh-my-zsh.sh
-RUN --mount=source=$OMZ,target=$OMZ $OMZ
+ARG OMZ_SH=devcontainer-base/oh-my-zsh.sh
+RUN --mount=source=$OMZ_SH,target=$OMZ_SH $OMZ_SH
 
 COPY --chown=$USER:$USER ./devcontainer-base/.zshrc "$HOME"
-COPY --chown=$USER:$USER ./devcontainer-base/bottom.toml "$HOME/.config/bottom"
+COPY --chown=$USER:$USER ./devcontainer-base/bottom.toml "$HOME/.config/bottom/bottom.toml"
 
 # These two scripts can be used to customize the shell environment. They are
 # sourced before and after `oh-my-zsh` in the `.zshrc` file.

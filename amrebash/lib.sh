@@ -66,3 +66,15 @@ function step {
     # signals directly.
     forward_signals with_log exec "$@"
 }
+
+# `curl` wrapper with better defaults
+function fetch {
+  step curl \
+    --fail \
+    --silent \
+    --show-error \
+    --location \
+    --retry 5 \
+    --retry-all-errors \
+    "$@"
+}
