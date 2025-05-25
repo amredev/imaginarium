@@ -1,0 +1,41 @@
+on:
+  push:
+    tags: [v*]
+
+env:
+  IMAGE_REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+jobs:
+  devcontainer-base:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: docker login $IMAGE_REGISTRY --username "$LOGIN_USER" --password "$LOGIN_TOKEN"
+        env:
+          LOGIN_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LOGIN_USER: ${{ github.actor }}
+
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            name/app
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+
+      - uses: docker/bake-action@v6
+        with:
+          files: |
+            ./docker-bake.hcl
+            cwd://${{ steps.meta.outputs.bake-file }}
+          targets: devcontainer-base

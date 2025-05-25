@@ -1,12 +1,7 @@
-variable "version" {
-  default = "1"
-}
+target "docker-metadata-action" {}
 
 target "devcontainer-base" {
+  inherits = ["docker-metadata-action"]
   context = "."
   dockerfile = "devcontainer-base/Dockerfile"
-  tags = [
-    "amredev/devcontainer-base:latest",
-    "amredev/devcontainer-base:${version}"
-  ]
 }

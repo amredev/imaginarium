@@ -22,7 +22,7 @@ RUN apk add --no-cache \
     # Better terminal experience
     zsh \
     # Install packages from the Alpine edge repository
-    && apk add --repository https://dl-cdn.alpinelinux.org/alpine/edge/community \
+    && apk add --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/community \
     # The latest version of `docker-compose` in the `edge` repo contains a fix
     # for the following annoying terminal flickering bug:
     # https://github.com/docker/compose/issues/12370
