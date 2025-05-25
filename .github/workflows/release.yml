@@ -39,3 +39,6 @@ jobs:
             ./docker-bake.hcl
             cwd://${{ steps.meta.outputs.bake-file }}
           targets: devcontainer-base
+          push: true
+          sbom: true
+          provenance: true
