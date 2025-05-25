@@ -1,0 +1,11 @@
+# Docs: https://clementtsang.github.io/bottom/nightly/configuration/config-file
+
+[flags]
+# Use basic mode
+basic = true
+
+# Show memory values in the processes widget as values by default
+mem_as_value = true
+
+# Show processes as their commands by default in the process widget.
+process_command = false
