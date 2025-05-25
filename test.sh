@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+. "$(dirname "${BASH_SOURCE[0]}")/amrebash/lib.sh"
+
+image="$1"
+
+tag=ghcr.io/amrebash/$image:latest
+
+step docker buildx bake --load --set "$image.tags=$tag" "$image"
+
+exec docker run -it --rm --name "$image-test" "$tag" zsh
