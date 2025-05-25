@@ -16,5 +16,4 @@ nvm install 20
 
 # Small sanity check:
 step node -v
-step nvm current
 step npm -v
