@@ -22,7 +22,7 @@ target "devcontainer-final" {
     "amredev-devcontainer-base" = (
       DOCKER_METADATA_OUTPUT_VERSION == ""
       ? "target:devcontainer-base"
-      : "docker-image:ghcr.io/amredev/devcontainer-base:${DOCKER_METADATA_OUTPUT_VERSION}"
+      : "docker-image://ghcr.io/amredev/devcontainer-base:${DOCKER_METADATA_OUTPUT_VERSION}"
     )
   }
 }
