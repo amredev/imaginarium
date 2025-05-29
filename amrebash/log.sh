@@ -70,9 +70,16 @@ function with_collapsed_log {
 }
 
 function group_header {
+    local command
     command=$(colorize_command "$@")
 
-    echo -e "\033[32;1m👉 ❱ $command"
+    local pointer=""
+
+    if [[ "${GITHUB_ACTIONS:-false}" == "true" ]]; then
+        pointer="👉 "
+    fi
+
+    echo -e "\033[32;1m$pointer❱ $command"
 }
 
 # Begin a collapsible group. You'll need to click on the logs to expand them on CI

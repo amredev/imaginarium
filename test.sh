@@ -8,6 +8,6 @@ image="$1"
 
 tag=ghcr.io/amredev/$image:latest
 
-step docker buildx bake --load --set "$image.tags=$tag" "$image"
+step docker buildx bake --load --set "$image.tags=$tag" --progress plain "$image"
 
 exec docker run -it --rm --name "$image-test" "$tag" zsh

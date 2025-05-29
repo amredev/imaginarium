@@ -69,7 +69,7 @@ function step {
 
 # `curl` wrapper with better defaults
 function fetch {
-  step curl \
+   step curl \
     --fail \
     --silent \
     --show-error \
