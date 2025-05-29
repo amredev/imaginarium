@@ -4,8 +4,6 @@ set -euo pipefail
 
 . "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
-version=$1
-
 case "$arch_rust" in
     x86_64) arch="x64" ;;
     aarch64) arch="arm64" ;;

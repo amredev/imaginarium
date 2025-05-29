@@ -4,13 +4,14 @@ ARG USER=amredev
 
 ENV HOME=/home/$USER
 
+# The directory is for storing custom tools that should be in PATHs
+ENV PATH="$HOME/.tools:$PATH"
+
 ARG INSTALL_SH=devcontainer-base/install.sh
 RUN --mount=source=amrebash,target=amrebash \
-  --mount=source=$INSTALL_SH,target=$INSTALL_SH $INSTALL_SH
+    --mount=source=$INSTALL_SH,target=$INSTALL_SH $INSTALL_SH
 
 USER $USER
-
-RUN mkdir $HOME/devcontainer-hooks
 
 COPY --chown=$USER:$USER amrebash $HOME/amrebash
 
@@ -19,15 +20,6 @@ RUN --mount=source=$OMZ_SH,target=$OMZ_SH $OMZ_SH
 
 COPY --chown=$USER:$USER ./devcontainer-base/.zshrc "$HOME"
 COPY --chown=$USER:$USER ./devcontainer-base/bottom.toml "$HOME/.config/bottom/bottom.toml"
-
-# The directory `$HOME/persisted` should be mounted as a volume to persist its
-# contents across container restarts. It's used to store the shell history and
-# some tool-specific caches.
-RUN mkdir -p "$HOME/persisted" && \
-  # The directory is for storing custom tools that should be in PATHs
-  mkdir -p "$HOME/.tools"
-
-ENV PATH="$HOME/.tools:$PATH"
 
 ENTRYPOINT [ "bash", "-c", "$HOME/amrebash/container/init.sh \"$@\"", "--" ]
 

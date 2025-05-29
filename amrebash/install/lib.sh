@@ -6,6 +6,12 @@
 arch_rust=$(uname -m | sed "s/arm64/aarch64/")
 export arch_rust
 
+arch_go=$(uname -m | sed "s/x86_64/amd64/" | sed "s/arm64/aarch64/")
+export arch_go
+
+version=$1
+export version
+
 function download_and_decompress {
     local hash_algo=""
     while [[ "$#" -gt 0 ]]; do
@@ -29,7 +35,7 @@ function download_and_decompress {
     local tmp
     tmp="/tmp/tools/$archive"
 
-    step mkdir --parents "$tmp"
+    step mkdir -p "$tmp"
 
     # Switch to the temporary directory. All file operations must be placed
     # after this command.
@@ -70,7 +76,7 @@ function move_to_path {
     local tool_name="${2:-$(basename "$tool_path")}"
     local out_dir="$HOME/.tools"
 
-    step mkdir --parents "$out_dir"
+    step mkdir -p "$out_dir"
     step chmod +x "$tool_path"
     step mv "$tool_path" "$out_dir/$tool_name"
 
@@ -80,7 +86,7 @@ function move_to_path {
 
 # Clean up the temp directory on exit
 function cleanup {
-    step rm --recursive --force /tmp/tools
+    step rm -rf /tmp/tools
 }
 
 trap cleanup EXIT
