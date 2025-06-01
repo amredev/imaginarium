@@ -6,7 +6,7 @@ set -euo pipefail
 
 base_url="https://github.com/mikefarah/yq/releases/download/v$version"
 
-stem="yq_linux_$arch_go"
+stem="yq_linux_$(arch amd64 arm64)"
 
 dir=$(download_and_decompress "$base_url/$stem.tar.gz")
 

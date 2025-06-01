@@ -4,7 +4,7 @@
 # Available themes: https://github.com/ohmyzsh/ohmyzsh/wiki/themes
 ZSH_THEME="simple"
 
-export HISTFILE="$HOME/persisted/shell-history"
+export HISTFILE="$HOME/persisted/history/shell"
 
 plugins=(
     command-time

@@ -6,7 +6,7 @@ set -euo pipefail
 
 base_url="https://github.com/junegunn/fzf/releases/download/v$version"
 
-stem="fzf-$version-linux_$arch_go"
+stem="fzf-$version-linux_$(arch amd64 arm64)"
 
 dir=$(download_and_decompress "$base_url/$stem.tar.gz")
 

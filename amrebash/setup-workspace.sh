@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-. "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
+. "$(dirname "${BASH_SOURCE[0]}")/utils/lib.sh"
 
 step mkdir -p "$CONTAINER_WORKSPACE"
 

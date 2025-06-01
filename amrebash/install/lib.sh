@@ -1,15 +1,23 @@
 #!/usr/bin/env bash
 
-. "$(dirname "${BASH_SOURCE[0]}")/../lib.sh"
+. "$(dirname "${BASH_SOURCE[0]}")/../utils/lib.sh"
 
-# Get a Rust-style arch name, e.g. x86_64, aarch64, etc.
-arch_rust=$(uname -m | sed "s/arm64/aarch64/")
-export arch_rust
+# Get the current machine arch using the given architecture naming conventions.
+function arch {
+    local amd64="$1"
+    local arm64="$2"
+    local uname_output
 
-arch_go=$(uname -m | sed "s/x86_64/amd64/" | sed "s/arm64/aarch64/")
-export arch_go
+    uname_output="$(uname -m)"
 
-version=$1
+    case "$uname_output" in
+        x86_64) echo "$amd64" ;;
+        arm64) echo "$arm64" ;;
+        *) echo "Unsupported architecture: $uname_output"; exit 1 ;;
+    esac
+}
+
+version=${1:-"latest"}
 export version
 
 function download_and_decompress {
@@ -33,13 +41,13 @@ function download_and_decompress {
     archive="$(basename "$url")"
 
     local tmp
-    tmp="/tmp/tools/$archive"
+    tmp="/tmp/tools/${archive%.*}"
 
     step mkdir -p "$tmp"
 
     # Switch to the temporary directory. All file operations must be placed
     # after this command.
-    pushd "$tmp" >/dev/null
+    cd "$tmp"
 
     fetch "$url" --remote-name
 
@@ -65,10 +73,25 @@ function download_and_decompress {
 
     info "Decompressed: $(ls -lah --color=always)"
 
-    # Return to the original directory. Must be the last command in the function.
-    popd >/dev/null
-
     echo "$tmp"
+}
+
+function download_and_install_deb {
+    local url=$1
+
+    local deb_file
+    deb_file="$(basename "$url")"
+
+    local tmp
+    tmp="/tmp/tools/${deb_file%.*}"
+
+    step mkdir -p "$tmp"
+
+    cd "$tmp"
+
+    fetch "$url" --remote-name
+
+    step sudo dpkg -i "$deb_file"
 }
 
 function move_to_path {
@@ -83,10 +106,3 @@ function move_to_path {
     # Sanity check: ensure the tool is executable
     step "$tool_name" --version
 }
-
-# Clean up the temp directory on exit
-function cleanup {
-    step rm -rf /tmp/tools
-}
-
-trap cleanup EXIT

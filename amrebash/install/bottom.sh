@@ -4,11 +4,6 @@ set -euo pipefail
 
 . "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
-step mkdir -p /tmp/tools/bottom
-cd /tmp/tools
+deb="bottom_$version-1_$(arch amd64 arm64).deb"
 
-deb="bottom_$version-1_amd64.deb"
-
-fetch -O "https://github.com/ClementTsang/bottom/releases/download/$version/$deb"
-step dpkg -i "$deb"
-step rm "$deb"
+download_and_install_deb "https://github.com/ClementTsang/bottom/releases/download/$version/$deb"
