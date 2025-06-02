@@ -10,7 +10,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 USER $USER
 
-# The directory is for storing custom tools that should be in PATH
+# This directory is for storing custom tools that should be in PATH
 ENV PATH="$HOME/.tools:$PATH"
 
 RUN --mount=type=cache,target=/var/cache/apt \
