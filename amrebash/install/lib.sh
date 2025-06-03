@@ -20,6 +20,8 @@ function arch {
 version=${1:-"latest"}
 export version
 
+shift || true
+
 function download_and_decompress {
     local hash_algo=""
     while [[ "$#" -gt 0 ]]; do
@@ -55,7 +57,7 @@ function download_and_decompress {
     if [[ "$hash_algo" != "" ]]; then
         local hash
         hash=$(fetch "$url.$hash_algo")
-        echo "$hash $archive" | step "${hash_algo}sum" --check
+        echo "$hash $archive" | step "${hash_algo}sum" --check >&2
     fi
 
     if [[ $url == *.tar.* || $url == *.tgz ]]; then
