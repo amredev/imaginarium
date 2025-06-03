@@ -99,7 +99,7 @@ function download_and_install_deb {
 function move_to_path {
     local tool_path="$1"
     local tool_name="${2:-$(basename "$tool_path")}"
-    local out_dir="$HOME/.tools"
+    local out_dir="$HOME/tools"
 
     step mkdir -p "$out_dir"
     step chmod +x "$tool_path"

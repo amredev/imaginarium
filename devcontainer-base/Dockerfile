@@ -11,7 +11,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
 USER $USER
 
 # This directory is for storing custom tools that should be in PATH
-ENV PATH="$HOME/.tools:$PATH"
+ENV PATH="$HOME/tools:$PATH"
 
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=source=amrebash/utils,target=amrebash/utils \
@@ -20,10 +20,6 @@ RUN --mount=type=cache,target=/var/cache/apt \
     ./devcontainer-base/install-rootless.sh
 
 COPY --chown=$USER:$USER amrebash $HOME/amrebash
-
-RUN --mount=source=devcontainer-base/oh-my-zsh.sh,target=devcontainer-base/oh-my-zsh.sh \
-    devcontainer-base/oh-my-zsh.sh
-
 COPY --chown=$USER:$USER ./devcontainer-base/.zshrc "$HOME"
 COPY --chown=$USER:$USER ./devcontainer-base/bottom.toml "$HOME/.config/bottom/bottom.toml"
 

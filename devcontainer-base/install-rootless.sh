@@ -7,7 +7,7 @@ set -euo pipefail
 install="$(dirname "${BASH_SOURCE[0]}")/../amrebash/install"
 
 # Directory for tools downloaded directly by scripts
-mkdir "$HOME/.tools"
+mkdir "$HOME/tools"
 
 # Better version of `cat` that adds syntax highlighting
 step "$install/bat.sh" 0.25.0
@@ -20,6 +20,9 @@ step sudo "$install/docker.sh"
 
 # Fzf provides better search history navigation via Ctrl+R
 step "$install/fzf.sh" 0.62.0
+
+# Terminal ergonomics
+step "$install/oh-my-zsh.sh"
 
 # Utility for JSON/YAML/TOML processing
 step "$install/yq.sh" 4.45.4
