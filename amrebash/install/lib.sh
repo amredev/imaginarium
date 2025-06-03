@@ -65,7 +65,7 @@ function download_and_decompress {
     elif [[ $url == *.gz ]]; then
         step gzip --decompress --stdout "$archive" >"$(basename "$url" .gz)"
     elif [[ $url == *.zip ]]; then
-        step unzip "$archive" "$@"
+        step unzip "$archive" "$@" >&2
     else
         echo "Unknown file type: $url"
         exit 1
