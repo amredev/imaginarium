@@ -6,6 +6,7 @@ set -euo pipefail
 
 bump="${1:-minor}"
 
+step git push
 step git fetch --tags
 
 version=$(git tag -l 'v*.*.*' | sort --version-sort | tail --lines 1)
