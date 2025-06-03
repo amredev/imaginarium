@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+. "$(dirname "${BASH_SOURCE[0]}")/../utils/lib.sh"
+
 fetch https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
 
 function install_omz_plugin {
