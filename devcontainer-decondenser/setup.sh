@@ -18,6 +18,6 @@ step sudo apt-get install -y --no-install-recommends --no-install-suggests \
 # Builds from source, requires Rust toolchain
 step ./amrebash/install/cargo-component.sh 0.3.0
 
-sudo rm -rf /var/lib/apt/lists/*
+step sudo rm -rf /var/lib/apt/lists/*
 step rm -rf "$HOME/.cargo/registry"
 step rm -rf "$HOME/.cargo/git"
