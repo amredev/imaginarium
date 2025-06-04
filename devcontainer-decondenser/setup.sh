@@ -9,8 +9,8 @@ step ./amrebash/install/rust.sh 1.87.0 --target wasm32-unknown-unknown
 step ./amrebash/install/taplo.sh 0.10.0
 step ./amrebash/install/typos.sh 1.32.0
 
-sudo apt-get update -y
-sudo apt-get install -y --no-install-recommends --no-install-suggests \
+step sudo apt-get update -y
+step sudo apt-get install -y --no-install-recommends --no-install-suggests \
     build-essential \
     pkg-config \
     libssl-dev
