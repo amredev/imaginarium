@@ -1,4 +1,4 @@
-FROM debian:trixie-slim
+FROM debian:trixie
 
 ARG USER=amredev
 ENV HOME=/home/$USER
