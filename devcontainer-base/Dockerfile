@@ -1,6 +1,6 @@
 FROM debian:trixie-slim
 
-ARG USER=amredev
+ENV USER=amredev
 ENV HOME=/home/$USER
 
 RUN --mount=type=cache,target=/var/cache/apt \

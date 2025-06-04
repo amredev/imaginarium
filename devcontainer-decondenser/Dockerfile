@@ -9,4 +9,6 @@ RUN --mount=source=amrebash,target=amrebash \
     --mount=source=devcontainer-decondenser/setup.sh,target=devcontainer-decondenser/setup.sh \
     ./amrebash/setup-workspace.sh && ./devcontainer-decondenser/setup.sh
 
+COPY --chown=$USER:$USER ./devcontainer-decondenser/.cargo/config.toml "$HOME/.cargo/config.toml"
+
 WORKDIR $CONTAINER_WORKSPACE
