@@ -16,7 +16,7 @@ step sudo apt-get install -y --no-install-recommends --no-install-suggests \
     libssl-dev
 
 # Builds from source, requires Rust toolchain
-step ./amrebash/install/cargo-component.sh 0.3.0
+step ./amrebash/install/cargo-component.sh 0.21.1
 
 step sudo rm -rf /var/lib/apt/lists/*
 step rm -rf "$HOME/.cargo/registry"
