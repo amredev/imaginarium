@@ -31,8 +31,3 @@ target "devcontainer-decondenser" {
   inherits = ["devcontainer-final"]
   dockerfile = "devcontainer-decondenser/Dockerfile"
 }
-
-target "devcontainer-xfmt" {
-  inherits = ["devcontainer-final"]
-  dockerfile = "devcontainer-xfmt/Dockerfile"
-}
