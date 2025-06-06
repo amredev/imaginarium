@@ -108,3 +108,15 @@ function move_to_path {
     # Sanity check: ensure the tool is executable
     step "$tool_name" --version
 }
+
+# `curl` wrapper with better defaults
+function fetch {
+   step curl \
+    --fail \
+    --silent \
+    --show-error \
+    --location \
+    --retry 5 \
+    --retry-all-errors \
+    "$@"
+}

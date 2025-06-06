@@ -7,8 +7,8 @@ ENV CONTAINER_WORKSPACE=$HOME/dev/decondenser
 WORKDIR $CONTAINER_WORKSPACE
 
 RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=source=amrebash,target=amrebash \
-    --mount=source=devcontainer-decondenser/setup.sh,target=devcontainer-decondenser/setup.sh \
-    ./amrebash/setup-workspace.sh && ./devcontainer-decondenser/setup.sh
+    --mount=source=scripts,target=scripts \
+    --mount=source=devcontainer-decondenser/init.sh,target=devcontainer-decondenser/init.sh \
+    ./scripts/init-workspace.sh && ./devcontainer-decondenser/init.sh
 
 COPY --chown=$USER:$USER ./devcontainer-decondenser/.cargo/config.toml "$HOME/.cargo/config.toml"

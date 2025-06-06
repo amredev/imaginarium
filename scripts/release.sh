@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-. "$(dirname "${BASH_SOURCE[0]}")/amrebash/utils/lib.sh"
+. "$(dirname "${BASH_SOURCE[0]}")/utils/lib.sh"
 
 bump="${1:-minor}"
 

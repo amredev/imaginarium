@@ -4,7 +4,7 @@ ENV USER=amredev
 ENV HOME=/home/$USER
 
 RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=source=amrebash/utils,target=amrebash/utils \
+    --mount=source=scripts/utils,target=scripts/utils \
     --mount=source=devcontainer-base/install-rootful.sh,target=devcontainer-base/install-rootful.sh \
     ./devcontainer-base/install-rootful.sh
 
@@ -14,16 +14,16 @@ USER $USER
 ENV PATH="$HOME/tools:$PATH"
 
 RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=source=amrebash/utils,target=amrebash/utils \
-    --mount=source=amrebash/install,target=amrebash/install \
+    --mount=source=scripts/utils,target=scripts/utils \
+    --mount=source=scripts/install,target=scripts/install \
     --mount=source=devcontainer-base/install-rootless.sh,target=devcontainer-base/install-rootless.sh \
     ./devcontainer-base/install-rootless.sh
 
-COPY --chown=$USER:$USER amrebash $HOME/amrebash
+COPY --chown=$USER:$USER scripts $HOME/scripts
 COPY --chown=$USER:$USER ./devcontainer-base/.zshrc "$HOME"
 COPY --chown=$USER:$USER ./devcontainer-base/bottom.toml "$HOME/.config/bottom/bottom.toml"
 
-ENTRYPOINT [ "bash", "-c", "$HOME/amrebash/container/init.sh \"$@\"", "--" ]
+ENTRYPOINT [ "bash", "-c", "$HOME/scripts/init-container.sh \"$@\"", "--" ]
 
 # Make sure the container stays alive
 CMD [ "sleep", "infinity" ]

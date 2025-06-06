@@ -2,6 +2,14 @@
 
 This repository contains various common reusable docker images, that are opinionated as per the `amredev` developers.
 
+## Development
+
+We use [Buildx Bake](https://docs.docker.com/build/bake/) to define the docker build. Run the following command to build an image and run a container from it for testing.
+
+```bash
+./scripts/test.sh {bake_target}
+```
+
 ## License
 
 <sup>

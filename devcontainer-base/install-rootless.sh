@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-. "$(dirname "${BASH_SOURCE[0]}")/../amrebash/utils/lib.sh"
+. "$(dirname "${BASH_SOURCE[0]}")/../scripts/utils/lib.sh"
 
-install="$(dirname "${BASH_SOURCE[0]}")/../amrebash/install"
+install="$(dirname "${BASH_SOURCE[0]}")/../scripts/install"
 
 # Directory for tools downloaded directly by scripts
 mkdir "$HOME/tools"
