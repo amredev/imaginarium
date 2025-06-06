@@ -10,6 +10,15 @@ We use [Buildx Bake](https://docs.docker.com/build/bake/) to define the docker b
 ./scripts/test.sh {bake_target}
 ```
 
+## Release
+
+Run the following command to create a new release. Specify the kind of the version bump to do (major, minor or patch).
+This command creates a new git tag and pushes it to remote. CI starts a new build when a new git tag is created.
+
+```bash
+./scripts/release.sh minor
+```
+
 ## License
 
 <sup>
