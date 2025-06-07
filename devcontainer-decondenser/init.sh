@@ -24,7 +24,7 @@ step ./scripts/install/typos.sh 1.32.0
 step ./scripts/install/cargo-component.sh dev
 
 step ./scripts/install/node.sh 20.19.2
-step ./scripts/install/rust.sh 1.87.0 --target wasm32-unknown-unknown
+step ./scripts/install/rust.sh 1.87.0 --target wasm32-wasip1
 
 step rm -rf "$HOME/.cargo/registry"
 step rm -rf "$HOME/.cargo/git"
