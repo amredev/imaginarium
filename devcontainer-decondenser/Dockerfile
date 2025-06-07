@@ -2,6 +2,8 @@ FROM amredev-devcontainer-base
 
 ENV PATH="$HOME/.node/bin:$PATH"
 ENV PATH="$HOME/.cargo/bin:$PATH"
+ENV CARGO_HOME="$HOME/.cargo"
+ENV RUSTUP_HOME="$HOME/.rustup"
 
 ENV CONTAINER_WORKSPACE=$HOME/dev/decondenser
 WORKDIR $CONTAINER_WORKSPACE
