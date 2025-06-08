@@ -4,6 +4,23 @@ set -euo pipefail
 
 . "$(dirname "${BASH_SOURCE[0]}")/../../scripts/utils/lib.sh"
 
+version=${1:-"latest"}
+export version
+
+shift || true
+
+# Add a dir to path if running in a CI environment. Otherwise, it's not possible
+# to extend the PATH of the parent process.
+function add_to_path {
+    local dir="$1"
+
+    if [[ -v CI ]]; then
+        echo "$dir:$PATH" >> "$GITHUB_PATH"
+    fi
+}
+
+add_to_path "$HOME/tools"
+
 # Get the current machine arch using the given architecture naming conventions.
 function arch {
     local amd64="$1"
@@ -37,11 +54,6 @@ function triple_rust {
         *) bail "Unsupported OS for Rust target triple: $(os)" ;;
     esac
 }
-
-version=${1:-"latest"}
-export version
-
-shift || true
 
 function download_and_decompress {
     local hash_algo=""
