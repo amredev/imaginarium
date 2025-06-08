@@ -34,8 +34,14 @@ function arch {
     uname_output="$(uname -m)"
 
     case "$uname_output" in
-        x86_64) echo "$amd64" ;;
-        aarch64)  echo "$arm64" ;;
+        x86_64)  echo "$amd64" ;;
+
+        # Yeah. On different platforms `uname -m` outputs different names for
+        # the same architecture. This is a mess. For example on Ubuntu the
+        # output is `aarch64`, but on macOS it is `arm64`.
+        aarch64) echo "$arm64" ;;
+        arm64)   echo "$arm64" ;;
+
         *) bail "Unsupported architecture: $uname_output" ;;
     esac
 }
