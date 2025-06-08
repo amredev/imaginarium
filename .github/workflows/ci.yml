@@ -28,7 +28,13 @@ jobs:
           - macos-13
 
     steps:
+      - uses: actions/checkout@v4
+
       - uses: ./install
+
+        # This tool requires a newer version of glibc
+        if: matrix.os != 'ubuntu-22.04'
+
         with:
           tool: cargo-component
           version: dev
