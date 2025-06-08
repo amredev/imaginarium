@@ -18,7 +18,7 @@ function add_to_path {
 
     export PATH="$dir:$PATH"
 
-    if [[ -v CI ]]; then
+    if [ -n "${CI+x}" ]; then
         step echo "$dir" >> "$GITHUB_PATH"
     fi
 }
