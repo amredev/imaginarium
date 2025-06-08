@@ -19,10 +19,10 @@ function error {
 }
 
 # Log a message at the error level and exit the script with a non-zero exit code
-function die {
+function bail {
     local message=$1
     error "$message"
-    exit 1
+    return 1
 }
 
 # Log the command and execute it
