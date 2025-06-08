@@ -4,6 +4,27 @@ set -euo pipefail
 
 . "$(dirname "${BASH_SOURCE[0]}")/../../scripts/utils/lib.sh"
 
+info "Running in shell: $SHELL ($BASH_VERSION)"
+
+version=${1:-"latest"}
+export version
+
+shift || true
+
+# Add a dir to path if running in a CI environment. Otherwise, it's not possible
+# to extend the PATH of the parent process.
+function add_to_path {
+    local dir="$1"
+
+    export PATH="$dir:$PATH"
+
+    if [ -n "${CI+x}" ]; then
+        step echo "$dir" >> "$GITHUB_PATH"
+    fi
+}
+
+add_to_path "$HOME/tools"
+
 # Get the current machine arch using the given architecture naming conventions.
 function arch {
     local amd64="$1"
@@ -13,16 +34,36 @@ function arch {
     uname_output="$(uname -m)"
 
     case "$uname_output" in
-        x86_64) echo "$amd64" ;;
-        arm64) echo "$arm64" ;;
-        *) echo "Unsupported architecture: $uname_output"; exit 1 ;;
+        x86_64)  echo "$amd64" ;;
+
+        # Yeah. On different platforms `uname -m` outputs different names for
+        # the same architecture. This is a mess. For example on Ubuntu the
+        # output is `aarch64`, but on macOS it is `arm64`.
+        aarch64) echo "$arm64" ;;
+        arm64)   echo "$arm64" ;;
+
+        *) bail "Unsupported architecture: $uname_output" ;;
     esac
 }
 
-version=${1:-"latest"}
-export version
+function os {
+    case "$OSTYPE" in
+        linux*)  echo linux ;;
+        darwin*) echo darwin ;;
+        msys)    echo windows ;;
+        *) bail "Unknown OS: $OSTYPE" ;;
+    esac
+}
 
-shift || true
+function triple_rust {
+    arch=$(arch x86_64 aarch64)
+    case $(os) in
+        linux)   echo "$arch-unknown-linux-gnu" ;;
+        darwin)  echo "$arch-apple-darwin" ;;
+        windows) echo "$arch-pc-windows-msvc" ;;
+        *) bail "Unsupported OS for Rust target triple: $(os)" ;;
+    esac
+}
 
 function download_and_decompress {
     local hash_algo=""
@@ -113,12 +154,12 @@ function move_to_path {
 
 # `curl` wrapper with better defaults
 function fetch {
-   step curl \
-    --fail \
-    --silent \
-    --show-error \
-    --location \
-    --retry 5 \
-    --retry-all-errors \
-    "$@"
+    step curl \
+        --fail \
+        --silent \
+        --show-error \
+        --location \
+        --retry 5 \
+        --retry-all-errors \
+        "$@"
 }

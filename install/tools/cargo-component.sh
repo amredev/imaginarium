@@ -6,7 +6,16 @@ set -euo pipefail
 
 base_url="https://github.com/bytecodealliance/cargo-component/releases/download/$version"
 
-stem="cargo-component-$(arch x86_64 aarch64)-unknown-linux-gnu"
+arch=$(arch x86_64 aarch64)
+
+case $(os) in
+    linux)   triple="$arch-unknown-linux-gnu" ;;
+    darwin)  triple="$arch-apple-darwin" ;;
+    windows) triple="$arch-pc-windows-gnu" ;;
+    *)
+esac
+
+stem="cargo-component-$triple"
 
 fetch "$base_url/$stem" > cargo-component
 

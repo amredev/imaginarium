@@ -12,15 +12,17 @@ inputs:
 
   version:
     description: >
-      The version of the tool to install. Not all tools support pinning a
-      specific version, in which case the latest version will be installed.
-    default: 'latest'
+      The version of the tool to install. This is required to make sure you
+      pin the version of the tool. Using the wildcard to get always the latest
+      version is not recommended.
+    required: true
 
 runs:
   using: composite
   steps:
     - shell: bash
-      run: ${GITHUB_ACTION_PATH:?}/tools/$tool.sh
+      run: >
+        "${GITHUB_ACTION_PATH:?}/tools/$tool.sh" "$version"
       env:
         tool: ${{ inputs.tool }}
         version: ${{ inputs.version }}

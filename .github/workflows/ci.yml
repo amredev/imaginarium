@@ -1,0 +1,49 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  install:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+          - ubuntu-22.04
+          - ubuntu-24.04-arm
+          - ubuntu-22.04-arm
+
+          - windows-2025
+          - windows-2022
+          - windows-2019
+          - windows-11-arm
+
+          - macos-15
+          - macos-14
+          - macos-13
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./install
+
+        # This tool requires a newer version of glibc
+        if: matrix.os != 'ubuntu-22.04'
+
+        with:
+          tool: cargo-component
+          version: dev
+
+      - uses: ./install
+        with:
+          tool: node
+          version: 20.19.2

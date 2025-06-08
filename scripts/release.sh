@@ -34,7 +34,7 @@ case "$bump" in
         patch=$((patch + 1))
         ;;
     *)
-        die "Invalid bump: '$bump' (must by any of major, minor, or patch)"
+        bail "Invalid bump: '$bump' (must by any of major, minor, or patch)"
         ;;
 esac
 
