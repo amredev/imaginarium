@@ -14,25 +14,26 @@ function arch {
 
     case "$uname_output" in
         x86_64) echo "$amd64" ;;
-        arm64) echo "$arm64" ;;
+        arm64)  echo "$arm64" ;;
         *) bail "Unsupported architecture: $uname_output" ;;
     esac
 }
 
 function os {
     case "$OSTYPE" in
-        linux*) echo linux ;;
+        linux*)  echo linux ;;
         darwin*) echo darwin ;;
-        msys) echo windows ;;
+        msys)    echo windows ;;
         *) bail "Unknown OS: $OSTYPE" ;;
     esac
 }
 
 function triple_rust {
+    arch=$(arch x86_64 aarch64)
     case $(os) in
-        linux) echo unknown-linux-gnu ;;
-        darwin) echo apple-darwin ;;
-        windows) echo pc-windows-msvc ;;
+        linux)   echo "$arch-unknown-linux-gnu" ;;
+        darwin)  echo "$arch-apple-darwin" ;;
+        windows) echo "$arch-pc-windows-msvc" ;;
         *) bail "Unsupported OS for Rust target triple: $(os)" ;;
     esac
 }
