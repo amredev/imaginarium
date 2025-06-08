@@ -20,7 +20,7 @@ runs:
   using: composite
   steps:
     - shell: bash
-      run: ${GITHUB_ACTION_PATH:?}/../scripts/install/$tool.sh
+      run: ${GITHUB_ACTION_PATH:?}/tools/$tool.sh
       env:
         tool: ${{ inputs.tool }}
         version: ${{ inputs.version }}

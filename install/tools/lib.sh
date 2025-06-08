@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-. "$(dirname "${BASH_SOURCE[0]}")/../utils/lib.sh"
+set -euo pipefail
+
+. "$(dirname "${BASH_SOURCE[0]}")/../../scripts/utils/lib.sh"
 
 # Get the current machine arch using the given architecture naming conventions.
 function arch {
