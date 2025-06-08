@@ -14,6 +14,8 @@ shift || true
 function add_to_path {
     local dir="$1"
 
+    export PATH="$dir:$PATH"
+
     if [[ -v CI ]]; then
         step echo "$dir" >> "$GITHUB_PATH"
     fi
