@@ -6,10 +6,12 @@ set -euo pipefail
 
 base_url="https://github.com/bytecodealliance/cargo-component/releases/download/$version"
 
+arch=$(arch x86_64 aarch64)
+
 case $(os) in
-    linux)   triple="$(arch)-unknown-linux-gnu" ;;
-    darwin)  triple="$(arch)-apple-darwin" ;;
-    windows) triple="$(arch)-pc-windows-gnu" ;;
+    linux)   triple="$arch-unknown-linux-gnu" ;;
+    darwin)  triple="$arch-apple-darwin" ;;
+    windows) triple="$arch-pc-windows-gnu" ;;
     *)
 esac
 
