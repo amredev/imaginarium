@@ -45,5 +45,5 @@ jobs:
 
       - uses: ./install
         with:
-          tool: node
-          version: 20.19.2
+          tool: shellcheck
+          version: 0.10.0
