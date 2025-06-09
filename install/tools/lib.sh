@@ -116,7 +116,7 @@ function download_and_decompress {
 
     step rm "$archive"
 
-    info "Decompressed: $(ls -lah --color=always)"
+    info "Decompressed: $(tree --du -h)"
 
     echo "$tmp"
 }

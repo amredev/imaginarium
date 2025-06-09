@@ -15,6 +15,7 @@ packages=(
     # Required for git ssh auth
     openssh-client
     sudo
+    tree
     unzip
     xz-utils
     # Better terminal experience
