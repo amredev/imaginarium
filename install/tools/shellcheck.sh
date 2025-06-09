@@ -11,7 +11,7 @@ os=$(os)
 if [[ "$os" == "windows" ]]; then
     archive="shellcheck-v$version.zip"
 else
-    archive="shellcheck-v$version.$os.$(arch x86_64 aarch64).tar.xa"
+    archive="shellcheck-v$version.$os.$(arch x86_64 aarch64).tar.xz"
 
 fi
 
