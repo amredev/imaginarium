@@ -6,7 +6,13 @@ set -euo pipefail
 
 base_url="https://github.com/koalaman/shellcheck/releases/download/v$version"
 
-stem="shellcheck-v$version.$(os).$(arch x86_64 aarch64)"
+os=$(os)
+
+if [[ "$os" == "windows" ]]; then
+    stem="shellcheck-v$version.zip"
+else
+    stem="shellcheck-v$version.$os.$(arch x86_64 aarch64)"
+fi
 
 dir=$(download_and_decompress "$base_url/$stem.tar.xz")
 
