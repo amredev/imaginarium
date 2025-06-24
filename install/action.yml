@@ -21,8 +21,7 @@ runs:
   using: composite
   steps:
     - shell: bash
-      run: >
-        "${GITHUB_ACTION_PATH:?}/tools/$tool.sh" "$version"
+      run: '"${GITHUB_ACTION_PATH:?}/$tool.sh" "$version"'
       env:
         tool: ${{ inputs.tool }}
         version: ${{ inputs.version }}

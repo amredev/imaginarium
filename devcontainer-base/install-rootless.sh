@@ -21,6 +21,9 @@ step sudo "$install/docker.sh"
 # Fzf provides better search history navigation via Ctrl+R
 step "$install/fzf.sh" 0.62.0
 
+# Benchmark CLI commands
+step "$install/hyperfine.sh" 1.19.0
+
 # Terminal ergonomics
 step "$install/oh-my-zsh.sh"
 
