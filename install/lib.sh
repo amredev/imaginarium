@@ -11,21 +11,6 @@ export version
 
 shift || true
 
-# Add a dir to path if running in a CI environment. Otherwise, it's not possible
-# to extend the PATH of the parent process.
-function add_to_path {
-    local dir="$1"
-
-    export PATH="$dir:$PATH"
-
-    if [ -n "${CI+x}" ]; then
-        step mkdir -p "$dir"
-        step echo "$dir" >> "$GITHUB_PATH"
-    fi
-}
-
-add_to_path "$HOME/tools"
-
 # Get the current machine arch using the given architecture naming conventions.
 function arch {
     local amd64="$1"
@@ -164,3 +149,33 @@ function fetch {
         --retry-all-errors \
         "$@"
 }
+
+# Borrowed from `taiki-e/install-action` ❤️:
+# https://github.com/taiki-e/install-action/blob/v2.54.1/main.sh#L419-L424
+#
+# Bash scripts that run on Windows CI use unix-style paths like
+# `/c/Users/runneradmin/tools`, but native Windows processes expect paths like
+# `C:\Users\runneradmin\tools`. This function converts the path to the correct
+# format.
+function canonicalize_windows_path() {
+  case $(os) in
+    windows) sed -E 's/^\/cygdrive\//\//; s/^\/c\//C:\\/; s/\//\\/g' <<<"$1" ;;
+    *) printf '%s\n' "$1" ;;
+  esac
+}
+
+# Add a dir to path if running in a CI environment. Otherwise, it's not possible
+# to extend the PATH of the parent process.
+function add_to_path {
+    local dir="$1"
+
+    export PATH="$dir:$PATH"
+
+    if [ -n "${CI+x}" ]; then
+        step mkdir -p "$dir"
+
+        step echo "$(canonicalize_windows_path "$dir")" >> "$GITHUB_PATH"
+    fi
+}
+
+add_to_path "$HOME/tools"
