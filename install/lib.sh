@@ -19,7 +19,7 @@ function add_to_path {
     export PATH="$dir:$PATH"
 
     if [ -n "${CI+x}" ]; then
-        step mdkir -p "$dir"
+        step mkdir -p "$dir"
         step echo "$dir" >> "$GITHUB_PATH"
     fi
 }
