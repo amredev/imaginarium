@@ -132,7 +132,15 @@ function move_to_path {
 
     step mkdir -p "$out_dir"
     step chmod +x "$tool_path"
-    step mv "$tool_path" "$out_dir/$tool_name"
+
+    local exe=""
+
+    case $(os) in
+        windows) exe=".exe" ;;
+        *) exe="" ;;
+    esac
+
+    step mv "$tool_path" "$out_dir/$tool_name$exe"
 
     # Sanity check: ensure the tool is executable
     step "$tool_name" --version
