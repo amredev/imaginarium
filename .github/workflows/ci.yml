@@ -34,7 +34,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: ./install
+      - name: install cargo-component
+        uses: ./install
 
         # This tool requires a newer version of glibc
         if: matrix.os != 'ubuntu-22.04'
@@ -43,7 +44,8 @@ jobs:
           tool: cargo-component
           version: dev
 
-      - uses: ./install
+      - name: install taplo
+        uses: ./install
         with:
           tool: taplo
           version: 0.10.0
