@@ -14,7 +14,7 @@ version=$(git tag -l 'v*.*.*' | sort --version-sort | tail --lines 1)
 if [[ -z "$version" ]]; then
     info "No semver tag found (vX.Y.Z). Starting at v0.1.0"
     major=0
-    minor=1
+    minor=0
     patch=0
 else
     IFS='.' read -r major minor patch <<<"${version#v}"
