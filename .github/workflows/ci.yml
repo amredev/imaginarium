@@ -45,5 +45,10 @@ jobs:
 
       - uses: ./install
         with:
+          tool: taplo
+          version: 0.10.0
+
+      - uses: ./install
+        with:
           tool: node
           version: 20.19.2

@@ -6,7 +6,7 @@ set -euo pipefail
 
 base_url="https://github.com/tamasfe/taplo/releases/download/$version"
 
-stem="taplo-linux-$(arch x86_64 aarch64)"
+stem="taplo-$(os)-$(arch x86_64 aarch64)"
 
 dir=$(download_and_decompress "$base_url/$stem.gz")
 
