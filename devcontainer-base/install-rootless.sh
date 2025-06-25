@@ -4,7 +4,7 @@ set -euo pipefail
 
 . "$(dirname "${BASH_SOURCE[0]}")/../scripts/utils/lib.sh"
 
-install="$(dirname "${BASH_SOURCE[0]}")/../install/tools"
+install="$(dirname "${BASH_SOURCE[0]}")/../install"
 
 # Directory for tools downloaded directly by scripts
 mkdir "$HOME/tools"

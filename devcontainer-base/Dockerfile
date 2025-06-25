@@ -15,7 +15,7 @@ ENV PATH="$HOME/tools:$PATH"
 
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=source=scripts/utils,target=scripts/utils \
-    --mount=source=install/tools,target=install/tools \
+    --mount=source=install,target=install \
     --mount=source=devcontainer-base/install-rootless.sh,target=devcontainer-base/install-rootless.sh \
     ./devcontainer-base/install-rootless.sh
 

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-. "$(dirname "${BASH_SOURCE[0]}")/../../scripts/utils/lib.sh"
+. "$(dirname "${BASH_SOURCE[0]}")/../scripts/utils/lib.sh"
 
 info "Running in shell: $SHELL ($BASH_VERSION)"
 
