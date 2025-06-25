@@ -17,6 +17,7 @@ install="$(dirname "${BASH_SOURCE[0]}")/../install"
 step "$install/mold.sh" 2.40.0
 step "$install/taplo.sh" 0.10.0
 step "$install/typos.sh" 1.33.1
+step "$install/shellcheck.sh" 0.10.0
 
 # We are using the `dev` version because at the time of this writing the latest
 # released version lacks binary artifacts, and we don't want to expload the
