@@ -27,7 +27,7 @@ step "$install/shellcheck.sh" 0.10.0
 step "$install/cargo-component.sh" dev
 
 step "$install/node.sh" 20.19.2
-step "$install/rust.sh" 1.87.0 \
+step "$install/rust.sh" 1.88.0 \
     --target wasm32-wasip1 \
     --target wasm32-unknown-unknown
 
